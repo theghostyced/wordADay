@@ -1,4 +1,7 @@
 import { CronJob } from 'cron';
+import PushNotification from './notification';
+import WordPicker from './wordPicker';
+
 /**
  * Timer class that pops up a push notification everyday
  *
@@ -7,8 +10,19 @@ import { CronJob } from 'cron';
 class Timer {
   constructor() {
     const cronTime = '* * * * *';
+    const wordPicker = new WordPicker();
+    const randomWord = wordPicker.pickRandomWord();
+
+    const notificationObj = {
+      title: 'Word Of The Day',
+      subtitle: randomWord.word,
+      body: `(n) ${randomWord.meaning.noun[0].definition}`
+    };
+
+    const notification = new PushNotification();
 
     this.timer = new CronJob(cronTime, () => {
+      notification.notify(notificationObj);
       console.log('running a task every minute');
     });
   }

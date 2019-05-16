@@ -47,6 +47,7 @@ class WordPicker {
     const randomJSON =
       parsedJSON[Math.floor(Math.random() * parsedJSON.length)];
     const keyName = this.getKeyName(randomJSON);
+    console.log(randomJSON[`${keyName}`].meaning);
 
     return randomJSON[`${keyName}`];
   }
