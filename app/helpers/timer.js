@@ -9,22 +9,9 @@ import WordPicker from './wordPicker';
  */
 class Timer {
   constructor() {
-    const cronTime = '* * * * *';
-    const wordPicker = new WordPicker();
-    const randomWord = wordPicker.pickRandomWord();
-
-    const notificationObj = {
-      title: 'Word Of The Day',
-      subtitle: randomWord.word,
-      body: `(n) ${randomWord.meaning.noun[0].definition}`
-    };
-
-    const notification = new PushNotification();
-
-    this.timer = new CronJob(cronTime, () => {
-      notification.notify(notificationObj);
-      console.log('running a task every minute');
-    });
+    this.cronTime = '* * * * *';
+    this.wordPicker = new WordPicker();
+    this.notification = new PushNotification();
   }
 
   /**
@@ -33,6 +20,16 @@ class Timer {
    * @memberof Timer
    */
   runScheduledTime() {
+    const randomWord = this.wordPicker.pickRandomWord();
+
+    this.timer = new CronJob(this.cronTime, () => {
+      const constructedObject = this.notification.constructPushNotificationObj(
+        randomWord
+      );
+      this.notification.notify(constructedObject);
+      console.log('running a task every minute');
+    });
+
     this.timer.start();
   }
 }

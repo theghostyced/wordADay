@@ -16,8 +16,6 @@ import log from 'electron-log';
 import MenuBuilder from './menu';
 import Timer from './helpers/timer';
 
-// TODO: Notification, Timer, Words
-
 export default class AppUpdater {
   constructor() {
     log.transports.file.level = 'info';
