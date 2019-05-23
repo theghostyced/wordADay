@@ -14,9 +14,7 @@ import { app, BrowserWindow } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
-import Timer from './helpers/wordPicker';
-
-// TODO: Notification, Timer, Words
+import Timer from './helpers/timer';
 
 export default class AppUpdater {
   constructor() {
@@ -51,7 +49,7 @@ const installExtensions = async () => {
 };
 
 const file = new Timer();
-file.pickRandomWord();
+file.runScheduledTime();
 
 /**
  * Add event listeners...
